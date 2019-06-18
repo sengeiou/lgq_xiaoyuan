@@ -1,6 +1,8 @@
 # maven ignore
 **/target/*
 */target/*
+/target/*
+target/*
 **/logs/*
 */logs/*
 */*.sql/*
