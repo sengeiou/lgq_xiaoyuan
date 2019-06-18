@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuan.modules.warn.mapper.WarnMapper">
+
+    <resultMap type="Warn" id="WarnResult">
+        <result property="id" column="id"/>
+        <result property="matter" column="matter"/>
+        <result property="beginTime" column="begin_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="userId" column="user_id"/>
+        <result property="startUsing" column="start_using"/>
+        <result property="warnTime" column="warn_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectWarnVo">
+        select id, matter, date_format(begin_time, '%Y-%m-%d' ) as begin_time, date_format(end_time, '%Y-%m-%d' )as end_time, date_format(warn_time, '%Y-%m-%d' ) as warn_time, remark from matter_warn
+    </sql>
+
+    <select id="selectWarnList" parameterType="Warn" resultMap="WarnResult">
+        <include refid="selectWarnVo"/>
+        <where>
+            <if test="id != null ">and id = #{id}</if>
+            <if test="matter != null  and matter != '' ">and matter = #{matter}</if>
+            <if test="beginTime != null ">and begin_time = #{beginTime}</if>
+            <if test="endTime != null ">and end_time = #{endTime}</if>
+            <if test="warnTime != null ">and warn_time = #{warnTime}</if>
+            <if test="remark != null  and remark != '' ">and remark = #{remark}</if>
+            <if test="userId != null  and userId != '' ">and user_id = #{userId}</if>
+            <if test="startUsing != null">and start_using = #{startUsing}</if>
+        </where>
+    </select>
+
+    <select id="selectWarnById" parameterType="Integer" resultMap="WarnResult">
+        <include refid="selectWarnVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertWarn" parameterType="Warn">
+        insert into matter_warn
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null  ">id,</if>
+            <if test="matter != null  and matter != ''  ">matter,</if>
+            <if test="beginTime != null  ">begin_time,</if>
+            <if test="endTime != null  ">end_time,</if>
+            <if test="warnTime != null  ">warn_time,</if>
+            <if test="remark != null  and remark != ''  ">remark,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="startUsing != null">start_using,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null  ">#{id},</if>
+            <if test="matter != null  and matter != ''  ">#{matter},</if>
+            <if test="beginTime != null  ">DATE_FORMAT(#{beginTime},'%Y-%m-%d'),</if>
+            <if test="endTime != null  ">DATE_FORMAT(#{endTime},'%Y-%m-%d'),</if>
+            <if test="warnTime != null  ">DATE_FORMAT(#{warnTime},'%Y-%m-%d'),</if>
+            <if test="remark != null  and remark != '' ">#{remark},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="startUsing != null">#{startUsing},</if>
+        </trim>
+    </insert>
+
+    <update id="updateWarn" parameterType="Warn">
+        update matter_warn
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="matter != null  and matter != ''  ">matter = #{matter},</if>
+            <if test="beginTime != null  ">begin_time = #{beginTime},</if>
+            <if test="endTime != null  ">end_time = #{endTime},</if>
+            <if test="warnTime != null  ">warn_time = #{warnTime},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="userId != null  and userId != '' ">user_id = #{userId}</if>
+            <if test="startUsing != null">start_using = #{startUsing}</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWarnById" parameterType="Integer">
+        delete from matter_warn where id = #{id}
+    </delete>
+
+    <delete id="deleteWarnByIds" parameterType="String">
+        delete from matter_warn where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--  选择每天需要提醒的事件  -->
+    <select id="selectNeedWarn" parameterType="Integer" resultType="Warn">
+       select id, matter,
+              date_format(begin_time, '%Y-%m-%d' ) as beginTime,
+              date_format(end_time, '%Y-%m-%d' ) as endTime,
+              date_format(warn_time, '%Y-%m-%d' ) as warnTime,
+              m.remark as remark,
+              u.login_name as loginName,
+              u.user_name as userName,
+              u.email as email,
+              u.phonenumber as phonenumber
+       from   matter_warn m LEFT JOIN sys_user u
+       on     m.user_id = u.user_id
+       WHERE  DATE_FORMAT(warn_time,'%Y-%m-%d') = DATE_FORMAT(now(),'%Y-%m-%d')
+
+       <!--
+             SELECT DATE_FORMAT(end_time, '%H' ) from matter_warn
+             获取小时
+              SELECT case DATE_FORMAT(end_time, '%H' ) WHEN DATE_FORMAT(end_time, '%H' ) < 12 then 'a' else 'b' END
+                     from matter_warn where end_time is NOT null
+              判断上下午
+       -->
+    </select>
+
+</mapper>
