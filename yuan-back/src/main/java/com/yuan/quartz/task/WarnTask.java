@@ -2,8 +2,8 @@ package com.yuan.quartz.task;
 
 import com.yuan.common.feige.FeigeService;
 import com.yuan.common.mail.MyMailService;
-import com.yuan.modules.warn.domain.Warn;
-import com.yuan.modules.warn.service.IWarnService;
+import com.yuan.model.warn.domain.Warn;
+import com.yuan.model.warn.service.IWarnService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

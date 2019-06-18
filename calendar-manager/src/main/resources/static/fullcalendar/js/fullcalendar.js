@@ -12,7 +12,6 @@
  
 (function($, undefined) {
 
-
 ;;
 
 var defaults = {
