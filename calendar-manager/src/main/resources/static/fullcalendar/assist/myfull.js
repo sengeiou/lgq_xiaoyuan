@@ -2,14 +2,27 @@ $(function () {
     //页面加载完初始化日历
     $('#calendar').fullCalendar({
         //设置日历头部信息
+        customButtons: {
+            myCustomButton: {
+                text: '自定义按钮',
+                click: function() {
+                    alert('点击了自定义按钮!');
+                }
+            }
+        },
         header: {
-            left: 'prev,next today',
+            left: 'prevYear,prev,next,nextYear myCustomButton today',
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
+        businessHours: {
+            dow: [1, 2, 3, 4 ], // 周一 - 周四
+            start: '10:00', // 上午10点开始
+            end: '18:00', // 下午18点结束
+        },
         firstDay: 1,//每行第一天为周一
         editable: true,//启用拖动
-        events: 'JsonServlet',
+        events: 'JsonServlet.json',
         //点击某一天时促发
         dayClick: function (date, allDay, jsEvent, view) {
             var selDate = $.fullCalendar.formatDate(date, 'yyyy-MM-dd');
@@ -20,6 +33,9 @@ $(function () {
         },
         //单击事件项时触发
         eventClick: function (calEvent, jsEvent, view) {
+            console.log(calEvent);
+            console.log(jsEvent);
+            console.log(view);
             $.fancybox({
                 'type': 'ajax',
                 'href': '/fullcalendar/initEditPage.do?selDate' + calEvent.id

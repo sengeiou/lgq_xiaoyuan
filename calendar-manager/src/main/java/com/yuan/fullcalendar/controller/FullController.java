@@ -27,6 +27,9 @@ public class FullController {
     private ICalendarService calendarService;
 
 
+    /**
+     * 入口
+     */
     @RequestMapping(value = "fullIndex")
     public String fullIndex() {
         return "fullcalendar/full_index";
@@ -35,11 +38,9 @@ public class FullController {
     /**
      * 取所有数据
      */
-    @RequestMapping(value = "JsonServlet")
+    @RequestMapping(value = "JsonServlet.json")
     @ResponseBody
     public List<CalendarModel> JsonServlet() {
-        List<CalendarModel> list = calendarService.getList();
-        System.out.println(list);
         return calendarService.getList();
     }
 
