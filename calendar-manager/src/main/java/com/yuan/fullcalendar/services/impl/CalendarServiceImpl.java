@@ -28,4 +28,13 @@ public class CalendarServiceImpl implements ICalendarService {
         return calendarMapper.selectList();
     }
 
+    @Override
+    public boolean saveFullFrom(CalendarModel calendarModel) {
+        return calendarMapper.insertSelective(calendarModel)>0;
+    }
+
+    @Override
+    public CalendarModel selectById(Integer id) {
+        return calendarMapper.selectByPrimaryKey(id);
+    }
 }

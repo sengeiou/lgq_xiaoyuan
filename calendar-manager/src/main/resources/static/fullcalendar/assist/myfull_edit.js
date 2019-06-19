@@ -1,4 +1,8 @@
-let FullEdit = function () {
+var FullEdit = function () {
+
+    let _saveFullFormUrl = "/fullcalendar/saveFullFrom.json";
+
+
     let _initFullcalendar = function () {
         $(".datepicker").datepicker();
         $("#isallday").click(function () {
@@ -40,6 +44,16 @@ let FullEdit = function () {
         });
     };
 
+    let  _saveFullFrom = function () {
+        $.ajax({
+            url:_saveFullFormUrl,
+            data: $("#full_form").serialize(),
+            success:function (data) {
+                console.log(data);
+            }
+        })
+    }
+    
     function showRequest() {
         var events = $("#event").val();
         if (events == '') {
@@ -67,7 +81,7 @@ let FullEdit = function () {
             _initFullcalendar();
         },
         showBtn: function () {
-            alert(1);
+            _saveFullFrom();
         }
     }
 }();

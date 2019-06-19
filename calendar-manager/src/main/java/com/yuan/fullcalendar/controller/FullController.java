@@ -7,6 +7,9 @@ package com.yuan.fullcalendar.controller;
 
 import com.yuan.fullcalendar.model.CalendarModel;
 import com.yuan.fullcalendar.services.ICalendarService;
+import com.yuan.fullcalendar.util.RResp;
+import com.yuan.fullcalendar.util.Utils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,8 +52,23 @@ public class FullController {
      */
     @RequestMapping(value = "initEditPage.do")
     public String initEditPage(CalendarModel calendarModel, Model model) {
-        System.out.println(calendarModel);
+        if (!Utils.isEmpty(calendarModel.getId().toString())){
+            calendarModel = calendarService.selectById(calendarModel.getId());
+        }
         model.addAttribute("calendarModel",calendarModel);
         return "fullcalendar/event";
+    }
+
+    /**
+     * 保存
+     */
+    @RequestMapping(value = "saveFullFrom.json")
+    @ResponseBody
+    public RResp saveFullFrom(CalendarModel calendarModel){
+        if (calendarService.saveFullFrom(calendarModel)){
+            return RResp.ok("ok");
+        }else {
+            return RResp.error();
+        }
     }
 }

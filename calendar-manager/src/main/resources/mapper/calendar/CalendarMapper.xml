@@ -6,11 +6,11 @@
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="start" jdbcType="VARCHAR" property="start"/>
         <result column="end" jdbcType="VARCHAR" property="end"/>
-        <result column="allday" jdbcType="BOOLEAN" property="allDay"/>
+        <result column="allDay" jdbcType="BOOLEAN" property="allDay"/>
         <result column="color" jdbcType="VARCHAR" property="color"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, title, `start`, `end`, allday, color
+        id, title, `start`, `end`, allDay, color
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -25,9 +25,9 @@
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yuan.fullcalendar.model.CalendarModel"
             useGeneratedKeys="true">
         insert into y_calendar (title, `start`, `end`,
-          allday, color)
+          allDay, color)
         values (#{title,jdbcType=VARCHAR}, #{start,jdbcType=VARCHAR}, #{end,jdbcType=VARCHAR},
-          #{allday,jdbcType=BOOLEAN}, #{color,jdbcType=VARCHAR})
+          #{allDay,jdbcType=BOOLEAN}, #{color,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id"
             parameterType="com.yuan.fullcalendar.model.CalendarModel"
@@ -43,8 +43,8 @@
             <if test="end != null">
                 `end`,
             </if>
-            <if test="allday != null">
-                allday,
+            <if test="allDay != null">
+                allDay,
             </if>
             <if test="color != null">
                 color,
@@ -60,8 +60,8 @@
             <if test="end != null">
                 #{end,jdbcType=VARCHAR},
             </if>
-            <if test="allday != null">
-                #{allday,jdbcType=BOOLEAN},
+            <if test="allDay != null">
+                #{allDay,jdbcType=BOOLEAN},
             </if>
             <if test="color != null">
                 #{color,jdbcType=VARCHAR},
@@ -80,8 +80,8 @@
             <if test="end != null">
                 `end` = #{end,jdbcType=VARCHAR},
             </if>
-            <if test="allday != null">
-                allday = #{allday,jdbcType=BOOLEAN},
+            <if test="allDay != null">
+                allDay = #{allDay,jdbcType=BOOLEAN},
             </if>
             <if test="color != null">
                 color = #{color,jdbcType=VARCHAR},
@@ -95,7 +95,7 @@
         set title = #{title,jdbcType=VARCHAR},
         `start` = #{start,jdbcType=VARCHAR},
         `end` = #{end,jdbcType=VARCHAR},
-        allday = #{allday,jdbcType=BOOLEAN},
+        allDay = #{allDay,jdbcType=BOOLEAN},
         color = #{color,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>

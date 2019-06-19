@@ -65,8 +65,6 @@ $(function () {
         eventClick: function (calEvent, jsEvent, view) {
             console.log('eventClick中选中Event的id属性值为：', calEvent.id);
             console.log('eventClick中选中Event的title属性值为：', calEvent.title);
-            console.log('eventClick中选中Event的start属性值为：', calEvent.start.format('YYYY-MM-DD HH:mm'));
-            console.log('eventClick中选中Event的end属性值为：', calEvent.end==null?'无':calEvent.end.format('YYYY-MM-DD HH:mm'));
             console.log('eventClick中选中Event的color属性值为：', calEvent.color);
             console.log('eventClick中选中Event的className属性值为：', calEvent.className);
             console.log(view);

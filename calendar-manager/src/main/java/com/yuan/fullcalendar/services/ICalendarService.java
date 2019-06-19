@@ -17,4 +17,7 @@ public interface ICalendarService {
 
     List<CalendarModel> getList();
 
+    boolean saveFullFrom(CalendarModel calendarModel);
+
+    CalendarModel selectById(Integer id);
 }
