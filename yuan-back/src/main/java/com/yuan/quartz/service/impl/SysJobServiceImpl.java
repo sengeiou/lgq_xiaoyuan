@@ -3,6 +3,7 @@ package com.yuan.quartz.service.impl;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 
 import org.quartz.CronTrigger;
 import org.quartz.Scheduler;
@@ -23,10 +24,10 @@ import com.yuan.quartz.util.ScheduleUtils;
 @Service
 public class SysJobServiceImpl implements ISysJobService {
 
-    @Autowired
+    @Resource
     private Scheduler scheduler;
 
-    @Autowired
+    @Resource
     private SysJobMapper jobMapper;
 
     /**

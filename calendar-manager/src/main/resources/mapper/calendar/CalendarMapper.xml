@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yuan.fullcalendar.mapper.CalendarMapper">
-    <resultMap id="BaseResultMap" type="com.yuan.fullcalendar.model.Calendar">
+    <resultMap id="BaseResultMap" type="com.yuan.fullcalendar.model.CalendarModel">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="start" jdbcType="VARCHAR" property="start"/>
         <result column="end" jdbcType="VARCHAR" property="end"/>
-        <result column="allday" jdbcType="BOOLEAN" property="allday"/>
+        <result column="allday" jdbcType="BOOLEAN" property="allDay"/>
         <result column="color" jdbcType="VARCHAR" property="color"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, title, `start`, `end`, allday, color
-  </sql>
+        id, title, `start`, `end`, allday, color
+    </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -19,17 +19,18 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from y_calendar
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yuan.fullcalendar.model.Calendar"
+        delete from y_calendar
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yuan.fullcalendar.model.CalendarModel"
             useGeneratedKeys="true">
-    insert into y_calendar (title, `start`, `end`,
-      allday, color)
-    values (#{title,jdbcType=VARCHAR}, #{start,jdbcType=VARCHAR}, #{end,jdbcType=VARCHAR}, 
-      #{allday,jdbcType=BOOLEAN}, #{color,jdbcType=VARCHAR})
-  </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yuan.fullcalendar.model.Calendar"
+        insert into y_calendar (title, `start`, `end`,
+          allday, color)
+        values (#{title,jdbcType=VARCHAR}, #{start,jdbcType=VARCHAR}, #{end,jdbcType=VARCHAR},
+          #{allday,jdbcType=BOOLEAN}, #{color,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.yuan.fullcalendar.model.CalendarModel"
             useGeneratedKeys="true">
         insert into y_calendar
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -67,7 +68,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.yuan.fullcalendar.model.Calendar">
+    <update id="updateByPrimaryKeySelective" parameterType="com.yuan.fullcalendar.model.CalendarModel">
         update y_calendar
         <set>
             <if test="title != null">
@@ -88,7 +89,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.yuan.fullcalendar.model.Calendar">
+    <update id="updateByPrimaryKey" parameterType="com.yuan.fullcalendar.model.CalendarModel">
         <!--@mbg.generated-->
         update y_calendar
         set title = #{title,jdbcType=VARCHAR},

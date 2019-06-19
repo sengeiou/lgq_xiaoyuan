@@ -119,7 +119,6 @@
         </dependency>
         <!-- SpringBoot集成thymeleaf模板 end -->
 
-
         <!--Shiro核心框架 start -->
         <dependency>
             <groupId>org.apache.shiro</groupId>

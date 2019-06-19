@@ -1,6 +1,6 @@
 #calendar {
-    width: 960px;
-    margin: 20px auto 10px auto
+    width: 90%;
+    margin: 5% auto;
 }
 
 .fancy {
@@ -71,4 +71,23 @@
 .sub_btn .del {
     position: absolute;
     left: 2px
+}
+
+/* 事件 */
+/* Event 参数 className 的值 */
+.done:before {
+    content:"【 已完成 】";
+    background-color:yellow;
+    color:green;
+    text-align:center;
+    font-weight:bold;
+    width:100%;
+}
+/* Event 参数 className 的值 */
+.doing:before {
+    content:"【 未完成 】";
+    background-color:yellow;
+    color:red;
+    text-align:center;
+    font-weight:bold;
 }

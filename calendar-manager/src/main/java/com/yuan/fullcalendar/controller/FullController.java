@@ -8,6 +8,7 @@ package com.yuan.fullcalendar.controller;
 import com.yuan.fullcalendar.model.CalendarModel;
 import com.yuan.fullcalendar.services.ICalendarService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,7 +26,6 @@ public class FullController {
 
     @Resource
     private ICalendarService calendarService;
-
 
     /**
      * 入口
@@ -48,8 +48,9 @@ public class FullController {
      * 新增编辑界面
      */
     @RequestMapping(value = "initEditPage.do")
-    public String initEditPage(String selDate) {
-        System.out.println(selDate);
+    public String initEditPage(CalendarModel calendarModel, Model model) {
+        System.out.println(calendarModel);
+        model.addAttribute("calendarModel",calendarModel);
         return "fullcalendar/event";
     }
 }

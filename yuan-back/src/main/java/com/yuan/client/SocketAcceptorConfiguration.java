@@ -33,7 +33,6 @@ public class SocketAcceptorConfiguration {
         acceptor.getFilterChain().addAfter("protocolCodecFilter","headerCheckFilter",getHeaderCheckFilter());
         //设置处理器
         acceptor.setHandler(getIoHandler());
-
         acceptor.getSessionConfig().setTcpNoDelay(true);
         acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 60);
         acceptor.getSessionConfig().setReceiveBufferSize(1048576);

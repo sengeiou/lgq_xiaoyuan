@@ -1,22 +1,22 @@
 package com.yuan.fullcalendar.mapper;
 
-import com.yuan.fullcalendar.model.Calendar;
 import com.yuan.fullcalendar.model.CalendarModel;
 
 import java.util.List;
 
 public interface CalendarMapper {
+
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Calendar record);
+    int insert(CalendarModel calendarModel);
 
-    int insertSelective(Calendar record);
+    int insertSelective(CalendarModel calendarModel);
 
-    Calendar selectByPrimaryKey(Integer id);
+    CalendarModel selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Calendar record);
+    int updateByPrimaryKeySelective(CalendarModel calendarModel);
 
-    int updateByPrimaryKey(Calendar record);
+    int updateByPrimaryKey(CalendarModel calendarModel);
 
     List<CalendarModel> selectList();
 }
